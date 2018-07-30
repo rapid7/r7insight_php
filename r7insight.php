@@ -8,7 +8,7 @@
 
 
 	// put your Rapid7 Log Token inside the double quotes in the $LOG_TOKEN constant below.  	
-	$LOG_TOKEN = "83812fd2-61ba-48f5-988d-0287cdf62e7a";
+	$LOG_TOKEN = "Log Token Goes Here";
 	// put your Rapid7 data center region below
 	$REGION = "us";
 
