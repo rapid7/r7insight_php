@@ -3,41 +3,25 @@
 
 	class R7LoggerTest extends TestCase
 	{
-		/**
-		 *	@expectedException PHPUnit\Framework\Error\Warning
-		 */
-		public function testOneParameter()
-		{
-			$this->assertNotInstanceOf('R7Logger.php', R7Logger::getLogger('token'));
-		}
-
-		/**
-		 *  @expectedException PHPUnit\Framework\Error\Warning
-		 */
-		public function testTwoParameter()
-		{
-			$this->assertNotInstanceOf('R7Logger', R7Logger::getLogger('token', false));
-		}
-
-		/**
-		 *  @expectedException PHPUnit\Framework\Error\Warning
-		 */
-		public function testThreeParameter()
-		{
-			$this->assertNotInstanceOf('R7Logger', R7Logger::getLogger('token', false, false));
-		}
-
-		public function testAllParameters()
-		{
-			$this->assertInstanceOf('R7Logger', R7Logger::getLogger('token', false, false, LOG_DEBUG, false, "", 10000, "", "", false, true));
-
-		}
+		public $token = 'token';
+		public $region = 'eu';
+		public $persistent = true;
+		public $ssl = true;
+		public $severity = LOG_DEBUG;
+		public $datahubEnabled = false;
+		public $datahubIPAddress = '';
+		public $datahubPort = 10000;
+		public $host_id = '123-123';
+		public $host_name = 'car';
+		public $host_name_enabled = true;
+		public $add_local_timestamp = true;
+		public $use_json = true;
 
 		public function testMultiplyConnections()
 		{
-			$logFirst = R7Logger::getLogger('token1', false, false, LOG_DEBUG, false, "", 10000, "", "", false, true);
-			$logSecond = R7Logger::getLogger('token2', false, false, LOG_DEBUG, false, "", 10000, "", "", false, true);
-			$logThird = R7Logger::getLogger('token3', false, false, LOG_DEBUG, false, "", 10000, "", "", false, true);
+			$logFirst = R7Logger::getLogger('token1', $this->region, $this->persistent, $this->ssl, $this->severity, $this->datahubEnabled, $this->datahubIPAddress, $this->datahubPort, $this->host_id, $this->host_name, $this->host_name_enabled, $this->add_local_timestamp, $this->use_json);
+			$logSecond = R7Logger::getLogger('token2', $this->region, $this->persistent, $this->ssl, $this->severity, $this->datahubEnabled, $this->datahubIPAddress, $this->datahubPort, $this->host_id, $this->host_name, $this->host_name_enabled, $this->add_local_timestamp, $this->use_json);
+			$logThird = R7Logger::getLogger('token3', $this->region, $this->persistent, $this->ssl, $this->severity, $this->datahubEnabled, $this->datahubIPAddress, $this->datahubPort, $this->host_id, $this->host_name, $this->host_name_enabled, $this->add_local_timestamp, $this->use_json);
 
 			$this->assertNotEquals('token1', $logSecond->getToken());
 			$this->assertNotEquals('token2', $logThird->getToken());
@@ -49,26 +33,26 @@
 
 		public function testIsPersistent()
 		{
-			$log = R7Logger::getLogger('token', false, true, LOG_DEBUG, false, "", 10000, "", "", false, true);
+			$log = R7Logger::getLogger($this->token, $this->region, false, $this->ssl, $this->severity, $this->datahubEnabled, $this->datahubIPAddress, $this->datahubPort, $this->host_id, $this->host_name, $this->host_name_enabled, $this->add_local_timestamp, $this->use_json);
 
 			$this->assertFalse($log->isPersistent());
 
 			$this->tearDown();
 
-			$log = R7Logger::getLogger('token', true, true, LOG_DEBUG, false, "", 10000, "", "", false, true);
+			$log = R7Logger::getLogger($this->token, $this->region, $this->persistent, $this->ssl, $this->severity, $this->datahubEnabled, $this->datahubIPAddress, $this->datahubPort, $this->host_id, $this->host_name, $this->host_name_enabled, $this->add_local_timestamp, $this->use_json);
 
 			$this->assertTrue($log->isPersistent());
 		}
 
 		public function testIsTLS()
 		{
-			$log = R7Logger::getLogger('token',false,false, LOG_DEBUG, false, "", 10000, "", "", false, true);
+			$log = R7Logger::getLogger($this->token, $this->region, $this->persistent, false, $this->severity, $this->datahubEnabled, $this->datahubIPAddress, $this->datahubPort, $this->host_id, $this->host_name, $this->host_name_enabled, $this->add_local_timestamp, $this->use_json);
 
 			$this->assertFalse($log->isTLS());
 
 			$this->tearDown();
 
-			$log = R7Logger::getLogger('token', true, true, LOG_DEBUG, false, "", 10000, "", "", false, true);
+			$log = R7Logger::getLogger($this->token, $this->region, $this->persistent, $this->ssl, $this->severity, $this->datahubEnabled, $this->datahubIPAddress, $this->datahubPort, $this->host_id, $this->host_name, $this->host_name_enabled, $this->add_local_timestamp, $this->use_json);
 
 			$this->assertTrue($log->isTLS());
 		}
@@ -76,29 +60,28 @@
 		public function testGetPort()
 		{
 
-			$log = R7Logger::getLogger('token', true, false, LOG_DEBUG, false, "",  10000, "", "", false, true);
+			$log = R7Logger::getLogger($this->token, $this->region, $this->persistent, false, $this->severity, $this->datahubEnabled, $this->datahubIPAddress, 20000, $this->host_id, $this->host_name, $this->host_name_enabled, $this->add_local_timestamp, $this->use_json);
 
 
 			$this->assertEquals(10000, $log->getPort());
 
 			$this->tearDown();
 
-			$log = R7Logger::getLogger('token', true, true, LOG_DEBUG, false, "", 10000, "", "", false, true);
+			$log = R7Logger::getLogger($this->token, $this->region, $this->persistent, true, $this->severity, $this->datahubEnabled, $this->datahubIPAddress, $this->datahubPort, $this->host_id, $this->host_name, $this->host_name_enabled, $this->add_local_timestamp, $this->use_json);
 
 			$this->assertEquals(20000, $log->getPort());
 		}
 
 		public function testGetAddress()
 		{
-			$log = R7Logger::getLogger('token', true, false, LOG_DEBUG, false, "", 10000, "", "", false, true);
+			$log = R7Logger::getLogger($this->token, $this->region, $this->persistent, false, $this->severity, $this->datahubEnabled, $this->datahubIPAddress, $this->datahubPort, $this->host_id, $this->host_name, $this->host_name_enabled, $this->add_local_timestamp, $this->use_json);
 
-			$this->assertEquals('tcp://api.logentries.com', $log->getAddress());
+			$this->assertEquals('tcp://eu.data.logs.insight.rapid7.com', $log->getAddress());
 
 			$this->tearDown();
-			$log = R7Logger::getLogger('token', true, true, LOG_DEBUG, false, "", 10000, "", "", false, true);
+			$log = R7Logger::getLogger($this->token, $this->region, $this->persistent, true, $this->severity, $this->datahubEnabled, $this->datahubIPAddress, $this->datahubPort, $this->host_id, $this->host_name, $this->host_name_enabled, $this->add_local_timestamp, $this->use_json);
 
-
-			$this->assertEquals('tls://api.logentries.com', $log->getAddress());
+			$this->assertEquals('tls://eu.data.logs.insight.rapid7.com', $log->getAddress());
 		}
 
 		public function tearDown()
