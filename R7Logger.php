@@ -60,7 +60,7 @@ class R7Logger
 
 	private $persistent = true;
 
-	private $use_ssl = false;
+	private $use_ssl = true;
 	
 	private static $_timestampFormat = 'Y-m-d G:i:s';
 

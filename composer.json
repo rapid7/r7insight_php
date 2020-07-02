@@ -1,6 +1,6 @@
 {
-    "name": "logentries/logentries",
-    "description": "Logging library for use with Logentries",
+    "name": "rapid7/r7insight_php",
+    "description": "Logging library for use with the Insight Platform",
     "autoload": {
         "classmap": [
             "./"
@@ -10,12 +10,6 @@
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
     },
-    "authors": [
-        {
-            "name": "Mark Lacomber",
-            "email": "marklacomber@gmail.com"
-        }
-    ],
     "require": {
 
     }

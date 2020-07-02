@@ -7,10 +7,10 @@
 ***********/
 
 
-	// put your Rapid7 Log Token inside the double quotes in the $LOG_TOKEN constant below.  	
-	$LOG_TOKEN = "Log Token Goes Here";
-	// put your Rapid7 data center region below
-	$REGION = "us";
+	// Put your Rapid7 Log Token inside the double quotes in the $LOG_TOKEN constant below.  	
+	$LOG_TOKEN = "<LOG_TOKEN>";
+	// Put your Rapid7 data center region below
+	$REGION = "<REGION>";
 
 
 /*  
@@ -19,7 +19,7 @@
 *		2. IP Address of your datahub location  
 *		3. Set the Port for communicating with Datahub (10000 default) 
 *
-*		NOTE: If $DATAHUB_ENABLED = true, Datahub will ignore your Logentries log token as it is not required when using Datahub.
+*		NOTE: If $DATAHUB_ENABLED = true, Datahub will ignore your Insight Platform log token as it is not required when using Datahub.
 */
 	
 	$DATAHUB_ENABLED = false;
