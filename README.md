@@ -48,7 +48,7 @@ If you want to send log events in JSON format, then set the `$USE_JSON` field to
 
 ## Code Setup
 
-Now you need to download/clone the library from GitHub, unzip and place the folder in your apps directory.
+Now you need to download/clone the library from GitHub and place the folder in your apps directory.
 
 To use it in your code, enter the following lines, making changes accordingly if you place it in a different location.
 ```php
