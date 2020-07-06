@@ -62,8 +62,6 @@
 *  END  -  User - Defined Variables
 ************/
 
-		
-
 	// Whether the socket is persistent or not
 	$Persistent = true;
 

@@ -151,9 +151,10 @@ class R7Logger
 
 
 	public function validateToken($token){
-	
-	if (empty($token) ) {
+		if (empty($token) ) {
 			throw new InvalidArgumentException('Rapid7 Token was not provided in r7insight.php');
+		} elseif(!preg_match("/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/", $token)) {
+			throw new InvalidArgumentException('Rapid7 Token is not a valid UUID');
 		}
 	}
 

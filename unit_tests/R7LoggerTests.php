@@ -3,7 +3,7 @@
 
 	class R7LoggerTest extends TestCase
 	{
-		const token = 'token';
+		const token = '00112233-4455-6677-8899-aabbccddeeff';
 		const region = 'eu';
 		const persistent = true;
 		const ssl = true;
@@ -19,16 +19,16 @@
 
 		public function testMultiplyConnections()
 		{
-			$logFirst = R7Logger::getLogger('token1', self::region, self::persistent, self::ssl, self::severity, self::datahubEnabled, self::datahubIPAddress, self::datahubPort, self::host_id, self::host_name, self::host_name_enabled, self::add_local_timestamp, self::use_json);
-			$logSecond = R7Logger::getLogger('token2', self::region, self::persistent, self::ssl, self::severity, self::datahubEnabled, self::datahubIPAddress, self::datahubPort, self::host_id, self::host_name, self::host_name_enabled, self::add_local_timestamp, self::use_json);
-			$logThird = R7Logger::getLogger('token3', self::region, self::persistent, self::ssl, self::severity, self::datahubEnabled, self::datahubIPAddress, self::datahubPort, self::host_id, self::host_name, self::host_name_enabled, self::add_local_timestamp, self::use_json);
+			$logFirst = R7Logger::getLogger('00112233-4455-6677-8899-aabbccddeef0', self::region, self::persistent, self::ssl, self::severity, self::datahubEnabled, self::datahubIPAddress, self::datahubPort, self::host_id, self::host_name, self::host_name_enabled, self::add_local_timestamp, self::use_json);
+			$logSecond = R7Logger::getLogger('00112233-4455-6677-8899-aabbccddeef1', self::region, self::persistent, self::ssl, self::severity, self::datahubEnabled, self::datahubIPAddress, self::datahubPort, self::host_id, self::host_name, self::host_name_enabled, self::add_local_timestamp, self::use_json);
+			$logThird = R7Logger::getLogger('00112233-4455-6677-8899-aabbccddeef2', self::region, self::persistent, self::ssl, self::severity, self::datahubEnabled, self::datahubIPAddress, self::datahubPort, self::host_id, self::host_name, self::host_name_enabled, self::add_local_timestamp, self::use_json);
 
-			self::assertNotEquals('token1', $logSecond->getToken());
-			self::assertNotEquals('token2', $logThird->getToken());
+			self::assertNotEquals('00112233-4455-6677-8899-aabbccddeef0', $logSecond->getToken());
+			self::assertNotEquals('00112233-4455-6677-8899-aabbccddeef1', $logThird->getToken());
 
-			self::assertEquals('token1', $logFirst->getToken());
-			self::assertEquals('token2', $logSecond->getToken());
-			self::assertEquals('token3', $logThird->getToken());
+			self::assertEquals('00112233-4455-6677-8899-aabbccddeef0', $logFirst->getToken());
+			self::assertEquals('00112233-4455-6677-8899-aabbccddeef1', $logSecond->getToken());
+			self::assertEquals('00112233-4455-6677-8899-aabbccddeef2', $logThird->getToken());
 		}
 
 		public function testIsPersistent()
@@ -59,7 +59,6 @@
 
 		public function testGetPort()
 		{
-
 			$log = R7Logger::getLogger(self::token, self::region, self::persistent, false, self::severity, self::datahubEnabled, self::datahubIPAddress, 20000, self::host_id, self::host_name, self::host_name_enabled, self::add_local_timestamp, self::use_json);
 
 
@@ -82,6 +81,24 @@
 			$log = R7Logger::getLogger(self::token, self::region, self::persistent, true, self::severity, self::datahubEnabled, self::datahubIPAddress, self::datahubPort, self::host_id, self::host_name, self::host_name_enabled, self::add_local_timestamp, self::use_json);
 
 			self::assertEquals('tls://eu.data.logs.insight.rapid7.com', $log->getAddress());
+		}
+
+		public function testEmptyToken() {
+			$this->expectException(InvalidArgumentException::class);
+
+			R7Logger::getLogger($this->definitely_a_valid_attribute, self::region, self::persistent, true, self::severity, self::datahubEnabled, self::datahubIPAddress, self::datahubPort, self::host_id, self::host_name, self::host_name_enabled, self::add_local_timestamp, self::use_json);
+		}
+
+		public function testInvalidTokenFormat() {
+			$this->expectException(InvalidArgumentException::class);
+
+			R7Logger::getLogger("I'm a UUID I swear...", self::region, self::persistent, true, self::severity, self::datahubEnabled, self::datahubIPAddress, self::datahubPort, self::host_id, self::host_name, self::host_name_enabled, self::add_local_timestamp, self::use_json);
+		}
+
+		public function testEmptyStringToken() {
+			$this->expectException(InvalidArgumentException::class);
+
+			R7Logger::getLogger("", self::region, self::persistent, true, self::severity, self::datahubEnabled, self::datahubIPAddress, self::datahubPort, self::host_id, self::host_name, self::host_name_enabled, self::add_local_timestamp, self::use_json);
 		}
 
 		public function tearDown()
