@@ -24,6 +24,8 @@ Inside the `r7insight_php` folder, open `r7insight.php` and fill in the `LOG_TOK
 
 In the `REGION` field, enter the first 2 characters from the data endpoint that you copied earlier - e.g. `us`, `eu`, `ca`, `au` etc.
 
+You can also supply both of these by the use of environment variables with the same name -- `LOG_TOKEN` and `REGION`.
+
 
 Adding a Custom Host Name and Host ID sent in your PHP log events
 ---------------
