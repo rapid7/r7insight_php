@@ -3,18 +3,8 @@
 /**
 * Logging library for use with Rapid7
 *
-* Usage:
-* $log = R7Logger::getLogger('ad43g-dfd34-df3ed-3d3d3');
-* $log->Info("I'm an informational message");
-* $log->Warn("I'm a warning message");
-* $log->Warning("I'm also a warning message");
-*
 * Design inspired by KLogger library which is available at 
 *   https://github.com/katzgrau/KLogger.git
-*
-* @author Mark Lacomber <marklacomber@gmail.com>
-*
-* @version 1.6
 */
 
 class R7Logger 
