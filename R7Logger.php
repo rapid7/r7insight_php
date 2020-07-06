@@ -84,7 +84,6 @@ class R7Logger
 
 		if ($datahubEnabled===true)
 		{
-
 			// Check if a DataHub IP Address has been entered	
 			$this->validateDataHubIP($datahubIPAddress);	
 			
@@ -107,7 +106,7 @@ class R7Logger
 		{
 			$this->use_host_name = $host_name_enabled;
 		
-				// check host name exist.  If no host name has been specified, get the host name from the local machine, use Key value pairing.		
+			// check host name exist.  If no host name has been specified, get the host name from the local machine, use Key value pairing.		
 			if ($host_name ==="")
 			{
 				$this->_host_name = gethostname();
@@ -138,8 +137,6 @@ class R7Logger
 
 		//**** possible problem here with $ssl not sending.
 		$this->use_ssl = $ssl;
-
-//		$this->use_ssl = $use_ssl;
 
 		$this->severity = $severity;
 
@@ -208,7 +205,7 @@ class R7Logger
 	}
 	
 	
-		// check if datahub is enabled
+	// check if datahub is enabled
 	public function isDatahub()
 	{
 		return $this->use_datahub;
@@ -238,22 +235,6 @@ class R7Logger
 				return "tcp://" . $this->_region . self::R7DOMAIN;
 			}
 		}
-	/*
-		if ($this->isTLS() && !$this->isDatahub() )
-		{
-			return self::R7_TLS_ADDRESS;
-
-		}
-		elseif ($this->isDatahub() )
-		{
-			return $this->_datahubIPAddress;
-		}
-		else
-		{
-			return self::R7_ADDRESS . $this->_region . self::R7DOMAIN;
-//			return "tcp://" . $this->_region . ".data.logs.insight.rapid7.com";
-		}
-*/		
 	}
 
 	public function isConnected()
@@ -293,64 +274,64 @@ class R7Logger
 		return @fsockopen($address, $port, $this->errno, $this->errstr, $this->connectionTimeout);
 	}
 
-	public function Debug($line)
+	public function debug($line)
 	{
 		$this->log($line, LOG_DEBUG);
 	}
 
-	public function Info($line)
+	public function info($line)
 	{
 		$this->log($line, LOG_INFO);
 	}
 
-	public function Notice($line)
+	public function notice($line)
 	{
 		$this->log($line, LOG_NOTICE);
 	}
 
-	public function Warning($line)
+	public function warning($line)
 	{
 		$this->log($line, LOG_WARNING);
 	}
 
-	public function Warn($line)
+	public function warn($line)
 	{
-		$this->Warning($line);
+		$this->warning($line);
 	}
 
-	public function Error($line)
+	public function error($line)
 	{
 		$this->log($line, LOG_ERR);
 	}
 
-	public function Err($line)
+	public function err($line)
 	{
-		$this->Error($line);
+		$this->error($line);
 	}
 
-	public function Critical($line)
+	public function critical($line)
 	{
 		$this->log($line, LOG_CRIT);
 	}
 
-	public function Crit($line)
+	public function crit($line)
 	{
-		$this->Critical($line);
+		$this->critical($line);
 	}
 
-	public function Alert($line)
+	public function alert($line)
 	{
 		$this->log($line, LOG_ALERT);
 	}
 
-	public function Emergency($line)
+	public function emergency($line)
 	{
 		$this->log($line, LOG_EMERG);
 	}
 
-	public function Emerg($line)
+	public function emerg($line)
 	{
-		$this->Emergency($line);
+		$this->emergency($line);
 	}
 
 	public function log($line, $curr_severity)
@@ -361,9 +342,6 @@ class R7Logger
 			$prefix = ($this->add_timestamp ? $this->_getTime($curr_severity) . ' - ' : '') . $this->_getLevel($curr_severity) . ' - ';
 			$multiline = $this->substituteNewline($line);
 
-//			$data = $prefix . $multiline . PHP_EOL;
-//			$data = $multiline . PHP_EOL;
-			
 			if ($this->_use_json)
 			{
 				$myObj = new stdClass();
@@ -407,31 +385,7 @@ class R7Logger
 
 	public function writeToSocket($line)
 	{
-		/*
-		if ($this->isHostNameEnabled())
-		{
-			$finalLine = $this->_logToken . " " . $this->_host_name . " " . $line;
-		}
-		else
-		{
-			$finalLine = $this->_logToken . $this->_host_id . " " . $line;
-		}
-		*/
-		
 		$finalLine = $this->_logToken . $line;
-		
-/*
-		$myline->timestamp = $this->add_timestamp;
-		$myline->severity = $this->_getLevel($curr_severity) ;
-		if ($this->isHostNameEnabled())
-		{
-			$myline->host_name = $this->_host_name;
-		}
-		$myline->message = $line;
-*/
-
-
-
 		
 		if($this->isConnected())
 		{

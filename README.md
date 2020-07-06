@@ -55,11 +55,11 @@ To use it in your code, enter the following lines, making changes accordingly if
 require dirname(__FILE__) . './r7insight_php/r7insight.php';
 
 // The following levels are available
-$log->Debug("Isn't that the fault of the voters?");
-$log->Info("That's because sometimes I go by my maiden name.");
-$log->Notice("Give me the strongest thing you got.");
-$log->Crit("Awfully big moustache.");
-$log->Error("Yeah, and when I find the guy that did it...");
-$log->Alert("That's ok. I sometimes go by my maiden name.");
-$log->Emerg("Every time I order out.");
+$log->debug("Isn't that the fault of the voters?");
+$log->info("That's because sometimes I go by my maiden name.");
+$log->notice("Give me the strongest thing you got.");
+$log->crit("Awfully big moustache.");
+$log->error("Yeah, and when I find the guy that did it...");
+$log->alert("That's ok. I sometimes go by my maiden name.");
+$log->emerg("Every time I order out.");
 ```
