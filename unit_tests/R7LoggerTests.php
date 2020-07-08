@@ -101,7 +101,7 @@
 			R7Logger::getLogger("", self::region, self::persistent, true, self::severity, self::datahubEnabled, self::datahubIPAddress, self::datahubPort, self::host_id, self::host_name, self::host_name_enabled, self::add_local_timestamp, self::use_json);
 		}
 
-		public function tearDown()
+		public function tearDown(): void
 		{
 			R7Logger::tearDown();
 		}
