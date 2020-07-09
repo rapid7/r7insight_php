@@ -1,7 +1,7 @@
 <?php
 	use PHPUnit\Framework\TestCase;
 
-	class R7LoggerTest extends TestCase
+	class R7LoggerTests extends TestCase
 	{
 		const token = '00112233-4455-6677-8899-aabbccddeeff';
 		const region = 'eu';
@@ -105,5 +105,6 @@
 		{
 			R7Logger::tearDown();
 		}
-	}	
+	}
 ?>
+
