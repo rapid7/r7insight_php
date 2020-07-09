@@ -1,0 +1,17 @@
+{
+    "name": "rapid7/r7insight_php",
+    "description": "Logging library for use with the Insight Platform",
+    "autoload": {
+        "classmap": [
+            "./"
+        ]
+    },
+    "license": "MIT",
+    "require-dev": {
+        "phpunit/phpunit": "9.2.2"
+    },
+    "require": {
+
+    }
+}
+
