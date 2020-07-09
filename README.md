@@ -4,6 +4,7 @@ With these simple steps you can send your PHP application logs to the Insight Pl
 
 - [r7insight_php](#r7insight_php)
 	- [Insight Platform Setup](#insight-platform-setup)
+	- [Composer install](#composer-install)
 	- [Parameter Setup](#parameter-setup)
 	- [Adding a Custom Host Name and Host ID sent in your PHP log events](#adding-a-custom-host-name-and-host-id-sent-in-your-php-log-events)
 	- [Code Setup](#code-setup)
@@ -16,6 +17,14 @@ The Log Token and data endpoint will be displayed.
 The Log Token is a unique identifier for the log allowing for write-only access.
 Take note of these.
 
+## Composer install
+
+This package is also available on [Composer](https://packagist.org/packages/rapid7/r7insight_php).
+
+You can install this package by doing the following:
+```bash
+$ composer require rapid7/r7insight_php
+```
 
 ## Parameter Setup
 Inside the `r7insight_php` folder, open `r7insight.php` and fill in the `LOG_TOKEN` parameter.
